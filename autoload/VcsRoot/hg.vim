@@ -1,6 +1,7 @@
 " VcsRoot/hg.vim: Get the Mercurial repository root directory.
 "
 " DEPENDENCIES:
+"   - ingo/compat.vim autoload script
 "   - ingo/system.vim autoload script
 "
 " Copyright: (C) 2013 Ingo Karkat
@@ -9,10 +10,11 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	002	08-Aug-2013	Move escapings.vim into ingo-library.
 "	001	22-Mar-2013	file creation
 
 function! VcsRoot#hg#Root()
-    let l:root = ingo#system#Chomped('cd ' . escapings#shellescape(expand('%:p:h')) . '&& hg root')
+    let l:root = ingo#system#Chomped('chdir ' . ingo#compat#shellescape(expand('%:p:h')) . '&& hg root')
     if v:shell_error != 0
 	let l:root = ''
     endif
