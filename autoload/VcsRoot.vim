@@ -8,6 +8,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	002	04-Apr-2013	FIX: Force lowercase VCSType; this differs for
+"				the various types supported by VcsCommand.vim.
 "	001	23-Mar-2013	file creation
 
 function! VcsRoot#Root()
@@ -16,7 +18,7 @@ function! VcsRoot#Root()
     endif
 
     try
-	let b:VcsRoot = VcsRoot#{VCSCommandGetVCSType(bufnr(''))}#Root()
+	let b:VcsRoot = VcsRoot#{tolower(VCSCommandGetVCSType(bufnr('')))}#Root()
     catch /^Vim\%((\a\+)\)\=:E/
 	throw ingo#msg#MsgFromVimException()   " Don't swallow Vimscript errors.
     catch
