@@ -1,0 +1,111 @@
+*VcsRoot.txt*           Determine or set the repository's root directory.
+
+			  VCS ROOT    by Ingo Karkat
+								 *VcsRoot.vim*
+description			|VcsRoot-description|
+usage				|VcsRoot-usage|
+installation			|VcsRoot-installation|
+configuration			|VcsRoot-configuration|
+integration			|VcsRoot-integration|
+limitations			|VcsRoot-limitations|
+known problems			|VcsRoot-known-problems|
+todo				|VcsRoot-todo|
+history				|VcsRoot-history|
+
+==============================================================================
+DESCRIPTION						 *VcsRoot-description*
+
+This plugin ...
+
+HOW IT WORKS								     *
+
+SOURCE									     *
+(Original Vim tip, Stack Overflow answer, ...)
+
+SEE ALSO								     *
+(Plugins offering complementary functionality, or plugins using this library.)
+
+RELATED WORKS								     *
+(Alternatives from other authors, other approaches, references not used here.)
+
+==============================================================================
+USAGE							       *VcsRoot-usage*
+								    *:VcsRoot*
+:VcsRoot	Print the root of the repository the current buffer is in.
+
+								    *:RootSet*
+:RootSet {dir}	Set the repository root for the current buffer to {dir}, and
+		also apply this to any new or existing buffer that is below
+		{dir}.
+								  *:RootStore*
+:RootStore {dir}
+		Like |:RootSet|, but additionally store the root {dir}
+		permanently (in |g:VcsRoot_RootStoreFilespec|).
+								*:RootUnStore*
+:RootUnStore {dir}
+		Remove {dir} from the persistently stored roots.
+
+==============================================================================
+INSTALLATION						*VcsRoot-installation*
+
+The code is hosted in a Git repo at https://github.com/inkarkat/vim-VcsRoot
+You can use your favorite plugin manager, or "git clone" into a directory used
+for Vim |packages|. Stable releases are on the "master" branch, the latest
+unstable snapshot on "develop".
+
+This script is also packaged as a |vimball|. If you have the "gunzip"
+decompressor in your PATH, simply edit the *.vmb.gz package in Vim; otherwise,
+decompress the archive first, e.g. using WinZip. Inside Vim, install by
+sourcing the vimball or via the |:UseVimball| command. >
+    vim VcsRoot*.vmb.gz
+    :so %
+To uninstall, use the |:RmVimball| command.
+
+DEPENDENCIES						*VcsRoot-dependencies*
+
+- Requires Vim 7.0 or higher.
+
+==============================================================================
+CONFIGURATION					       *VcsRoot-configuration*
+
+For a permanent configuration, put the following commands into your |vimrc|:
+			*g:VcsRoot_RootStoreFilespec*
+To change the default location where |:RootStore| persists the manually set
+roots: >
+    let g:VcsRoot_RootStoreFilespec = $HOME . '/.vimroots'
+<
+							       *VcsRoot-remap*
+plugmap
+==============================================================================
+INTEGRATION						 *VcsRoot-integration*
+
+==============================================================================
+LIMITATIONS						 *VcsRoot-limitations*
+
+KNOWN PROBLEMS					      *VcsRoot-known-problems*
+
+TODO								*VcsRoot-todo*
+
+IDEAS							       *VcsRoot-ideas*
+
+CONTRIBUTING						  *VcsRoot-contribute*
+
+Report any bugs, send patches, or suggest features via the issue tracker at
+https://github.com/inkarkat/vim-VcsRoot/issues or email (address below).
+
+==============================================================================
+HISTORY							     *VcsRoot-history*
+
+GOAL
+First published version.
+
+0.01	21-May-2018
+Started development.
+
+==============================================================================
+Copyright: (C) 2018 Ingo Karkat
+The VIM LICENSE applies to this plugin; see |copyright|.
+
+Maintainer:	Ingo Karkat <ingo@karkat.de>
+==============================================================================
+ vim:tw=78:ts=8:ft=help:norl:
