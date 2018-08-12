@@ -31,19 +31,19 @@ RELATED WORKS								     *
 ==============================================================================
 USAGE							       *VcsRoot-usage*
 								    *:VcsRoot*
-:VcsRoot	Print the root of the repository the current buffer is in.
+:VcsRoot		Print the root of the repository the current buffer is
+			in.
 
 								    *:RootSet*
-:RootSet {dir}	Set the repository root for the current buffer to {dir}, and
-		also apply this to any new or existing buffer that is below
-		{dir}.
+:RootSet {dir}		Set the repository root for the current buffer to
+			{dir}, and also apply this to any new or existing
+			buffer that is below {dir}.
 								  *:RootStore*
 :RootStore {dir}
-		Like |:RootSet|, but additionally store the root {dir}
-		permanently (in |g:VcsRoot_RootStoreFilespec|).
-								*:RootUnStore*
-:RootUnStore {dir}
-		Remove {dir} from the persistently stored roots.
+			Like |:RootSet|, but additionally store the root {dir}
+			permanently (in |g:VcsRoot_RootStoreFilespec|).
+								*:RootUnstore*
+:RootUnstore {dir}	Remove {dir} from the persistently stored roots.
 
 ==============================================================================
 INSTALLATION						*VcsRoot-installation*
