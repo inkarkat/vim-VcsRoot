@@ -29,11 +29,16 @@ command! -bar VcsRoot if empty(VcsRoot#Root()) | echoerr 'No root set' | else | 
 
 command! -bar -nargs=1 -complete=dir RootSet
 \   if ! VcsRoot#Manual#Set(<q-args>) | echoerr ingo#err#Get() | endif
-command! -bar -nargs=1 -complete=dir RootStore
+command! -bar -nargs=? -complete=dir RootStore
 \   if ! VcsRoot#Manual#Store(<q-args>) | echoerr ingo#err#Get() | endif
-command! -bar -nargs=1 -complete=customlist,VcsRoot#Manual#Complete RootUnStore
+command! -bar -nargs=? -complete=customlist,VcsRoot#Manual#Complete RootUnstore
 \   if ! VcsRoot#Manual#Unstore(<q-args>) | echoerr ingo#err#Get() | endif
 
 
+"- autocmds --------------------------------------------------------------------
+
+if filereadable(g:VcsRoot_RootStoreFilespec)
+    call VcsRoot#Manual#ApplyStored()
+endif
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
