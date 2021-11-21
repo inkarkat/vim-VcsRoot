@@ -1,8 +1,8 @@
-" VcsRoot.vim: Get the repository's root directory.
+" VcsRoot.vim: Determine or set the repository's root directory.
 "
 " DEPENDENCIES:
 "
-" Copyright: (C) 2013 Ingo Karkat
+" Copyright: (C) 2013-2018 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
