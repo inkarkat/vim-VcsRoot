@@ -3,12 +3,14 @@
 " DEPENDENCIES:
 "   - ingo/system.vim autoload script
 "
-" Copyright: (C) 2013 Ingo Karkat
+" Copyright: (C) 2013-2014 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	002	18-Jul-2014	FIX: Make VCS root dir detection work when CWD
+"				is outside of the working copy.
 "	001	22-Mar-2013	file creation
 
 function! VcsRoot#git#Root()
@@ -20,7 +22,7 @@ function! VcsRoot#git#Root()
     if empty(l:root)
 	" Fallback: Search upwards for the storage directory, and assume its in
 	" the root dir.
-	let l:gitDirspec = finddir('.git', ';')
+	let l:gitDirspec = finddir('.git', '.;')
 	if ! empty(l:gitDirspec)
 	    let l:root = fnamemodify(l:gitDirspec, ':p:h')
 	endif
