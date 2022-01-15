@@ -1,16 +1,16 @@
 " VcsRoot/hg.vim: Get the Mercurial repository root directory.
 "
 " DEPENDENCIES:
-"   - ingo/compat.vim autoload script
-"   - ingo/fs/path.vim autoload script
-"   - ingo/system.vim autoload script
+"   - ingo-library.vim plugin
 "
-" Copyright: (C) 2013-2014 Ingo Karkat
+" Copyright: (C) 2013-2022 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	003	16-Jan-2022	BUG: Fallback upwards search needs to start from
+"				the file's directory (./), not the PWD (.).
 "	004	17-Dec-2014	BUG: "chdir" command does not exist outside
 "				Windows; use "cd" instead.
 "				BUG: Fallback didn't account for trailing path
@@ -29,9 +29,9 @@ function! VcsRoot#hg#Root()
     endif
 
     if empty(l:root)
-	" Fallback: Search upwards for the storage directory, and assume its in
+	" Fallback: Search upwards for the storage directory, and assume it's in
 	" the root dir.
-	let l:hgDirspec = finddir('.hg', '.;')
+	let l:hgDirspec = finddir('.hg', './;')
 	if ! empty(l:hgDirspec)
 	    let l:root = fnamemodify(ingo#fs#path#Combine(l:hgDirspec, ''), ':p:h:h')
 	endif
