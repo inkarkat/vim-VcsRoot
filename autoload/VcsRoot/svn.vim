@@ -1,14 +1,19 @@
 " VcsRoot/svn.vim: Get the Subversion repository root directory.
 "
 " DEPENDENCIES:
-"   - ingo/fs/traversal.vim autoload script
+"   - ingo-library.vim plugin
 "
-" Copyright: (C) 2013-2014 Ingo Karkat
+" Copyright: (C) 2013-2022 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	005	16-Jan-2022	BUG: Fallback upwards search needs to start from
+"				the file's directory (./), not the PWD (.).
+"				Append a trailing / to the found directory;
+"				fnamemodify() should recognize the directory,
+"				anyway, but let's be safe here.
 "	004	18-Jul-2014	Support Subversion 1.7 repository layout with
 "				only a single .svn directory inside the working
 "				copy root.
@@ -31,8 +36,12 @@ function! VcsRoot#svn#Root()
     else
 	" Detection for Subversion >= 1.7, where there's only a single .svn
 	" directory in the working copy root.
-	let l:svnDirspec = finddir('.svn', '.;')
-	return (empty(l:svnDirspec) ? '' : fnamemodify(l:svnDirspec, ':h'))
+	let l:svnDirspec = finddir('.svn', './;')
+	if empty(l:svnDirspec)
+	    return ''
+	else
+	    return fnamemodify(ingo#fs#path#Combine(l:svnDirspec, ''), ':p:h:h')
+	endif
     endif
 endfunction
 
