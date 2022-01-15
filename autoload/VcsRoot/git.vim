@@ -1,30 +1,44 @@
 " VcsRoot/git.vim: Get the Git repository root directory.
 "
 " DEPENDENCIES:
-"   - ingo/system.vim autoload script
+"   - ingo-library.vim plugin
 "
-" Copyright: (C) 2013-2014 Ingo Karkat
+" Copyright: (C) 2013-2022 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	003	16-Jan-2022	BUG: Need to 'cd' to the file's directory before
+"				"git rev-parse" if 'autochdir' isn't set.
+"				BUG: Fallback upwards search needs to start from
+"				the file's directory (./), not the PWD (.).
+"				BUG: finddir() (in Vim 8.2.2366) returns dirspec
+"				with a trailing /, which requires two :h:h to
+"				arrive at the parent directory. In Vim 7.4.1689,
+"				there's no trailing /, but fnamemodify somehow
+"				realizes that it's a directory and also requires
+"				:h:h. Append a trailing / to the found
+"				directory; fnamemodify() should recognize the
+"				directory, anyway, but let's be safe here.
+"				(Interestingly, all of this was correctly
+"				implemented in hg.vim)
 "	002	18-Jul-2014	FIX: Make VCS root dir detection work when CWD
 "				is outside of the working copy.
 "	001	22-Mar-2013	file creation
 
 function! VcsRoot#git#Root()
-    let l:root = ingo#system#Chomped('git rev-parse --show-toplevel')
+    let l:root = ingo#system#Chomped('cd ' . ingo#compat#shellescape(expand('%:p:h')) . '&& git rev-parse --show-toplevel')
     if v:shell_error != 0
 	let l:root = ''
     endif
 
     if empty(l:root)
-	" Fallback: Search upwards for the storage directory, and assume its in
+	" Fallback: Search upwards for the storage directory, and assume it's in
 	" the root dir.
-	let l:gitDirspec = finddir('.git', '.;')
+	let l:gitDirspec = finddir('.git', './;')
 	if ! empty(l:gitDirspec)
-	    let l:root = fnamemodify(l:gitDirspec, ':p:h')
+	    let l:root = fnamemodify(ingo#fs#path#Combine(l:gitDirspec, ''), ':p:h:h')
 	endif
     endif
 
