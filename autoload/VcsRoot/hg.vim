@@ -2,6 +2,7 @@
 "
 " DEPENDENCIES:
 "   - ingo/compat.vim autoload script
+"   - ingo/fs/path.vim autoload script
 "   - ingo/system.vim autoload script
 "
 " Copyright: (C) 2013-2014 Ingo Karkat
@@ -10,13 +11,19 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	004	17-Dec-2014	BUG: "chdir" command does not exist outside
+"				Windows; use "cd" instead.
+"				BUG: Fallback didn't account for trailing path
+"				separator returned by finddir(); canonicalize
+"				via ingo#fs#path#Combine(), and strip off an
+"				additional fragment.
 "	003	18-Jul-2014	FIX: Make VCS root dir detection work when CWD
 "				is outside of the working copy.
 "	002	08-Aug-2013	Move escapings.vim into ingo-library.
 "	001	22-Mar-2013	file creation
 
 function! VcsRoot#hg#Root()
-    let l:root = ingo#system#Chomped('chdir ' . ingo#compat#shellescape(expand('%:p:h')) . '&& hg root')
+    let l:root = ingo#system#Chomped('cd ' . ingo#compat#shellescape(expand('%:p:h')) . '&& hg root')
     if v:shell_error != 0
 	let l:root = ''
     endif
@@ -26,7 +33,7 @@ function! VcsRoot#hg#Root()
 	" the root dir.
 	let l:hgDirspec = finddir('.hg', '.;')
 	if ! empty(l:hgDirspec)
-	    let l:root = fnamemodify(l:hgDirspec, ':p:h')
+	    let l:root = fnamemodify(ingo#fs#path#Combine(l:hgDirspec, ''), ':p:h:h')
 	endif
     endif
 
