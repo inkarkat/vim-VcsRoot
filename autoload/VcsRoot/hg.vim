@@ -1,7 +1,6 @@
 " VcsRoot/hg.vim: Get the Mercurial repository root directory.
 "
 " DEPENDENCIES:
-"   - ingo-library.vim plugin
 "
 " Copyright: (C) 2013-2022 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -11,6 +10,8 @@
 " REVISION	DATE		REMARKS
 "	003	16-Jan-2022	BUG: Fallback upwards search needs to start from
 "				the file's directory (./), not the PWD (.).
+"				Refactoring: Extract generic
+"				VcsRoot#Generic#RootByCommandWithDirFallback().
 "	004	17-Dec-2014	BUG: "chdir" command does not exist outside
 "				Windows; use "cd" instead.
 "				BUG: Fallback didn't account for trailing path
@@ -23,21 +24,7 @@
 "	001	22-Mar-2013	file creation
 
 function! VcsRoot#hg#Root()
-    let l:root = ingo#system#Chomped('cd ' . ingo#compat#shellescape(expand('%:p:h')) . '&& hg root')
-    if v:shell_error != 0
-	let l:root = ''
-    endif
-
-    if empty(l:root)
-	" Fallback: Search upwards for the storage directory, and assume it's in
-	" the root dir.
-	let l:hgDirspec = finddir('.hg', './;')
-	if ! empty(l:hgDirspec)
-	    let l:root = fnamemodify(ingo#fs#path#Combine(l:hgDirspec, ''), ':p:h:h')
-	endif
-    endif
-
-    return l:root
+    return VcsRoot#Generic#RootByCommandWithDirFallback('hg root', '.hg')
 endfunction
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
