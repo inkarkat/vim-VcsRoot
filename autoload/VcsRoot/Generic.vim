@@ -11,7 +11,7 @@
 " REVISION	DATE		REMARKS
 "	001	16-Jan-2022	file creation
 
-function! VcsRoot#Generic#Root( vcsRootCommand, vcsMetaDirname )
+function! VcsRoot#Generic#RootByCommandWithDirFallback( vcsRootCommand, vcsMetaDirname ) abort
     let l:root = ingo#system#Chomped('cd ' . ingo#compat#shellescape(expand('%:p:h')) . ' && ' . a:vcsRootCommand)
     if v:shell_error != 0
 	let l:root = ''
@@ -20,13 +20,19 @@ function! VcsRoot#Generic#Root( vcsRootCommand, vcsMetaDirname )
     if empty(l:root)
 	" Fallback: Search upwards for the storage directory, and assume it's in
 	" the root dir.
-	let l:dirspec = finddir(a:vcsMetaDirname, './;')
-	if ! empty(l:dirspec)
-	    let l:root = fnamemodify(ingo#fs#path#Combine(l:dirspec, ''), ':p:h:h')
-	endif
+	let l:root = VcsRoot#Generic#RootByUpwardsDirSearch(a:vcsMetaDirname)
     endif
 
     return l:root
+endfunction
+
+function! VcsRoot#Generic#RootByUpwardsDirSearch( vcsMetaDirname ) abort
+    let l:dirspec = finddir(a:vcsMetaDirname, './;')
+    if ! empty(l:dirspec)
+	return ''
+    else
+	return fnamemodify(ingo#fs#path#Combine(l:dirspec, ''), ':p:h:h')
+    endif
 endfunction
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
