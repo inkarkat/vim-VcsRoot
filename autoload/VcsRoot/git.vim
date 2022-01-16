@@ -1,7 +1,6 @@
 " VcsRoot/git.vim: Get the Git repository root directory.
 "
 " DEPENDENCIES:
-"   - ingo-library.vim plugin
 "
 " Copyright: (C) 2013-2022 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -23,26 +22,14 @@
 "				directory, anyway, but let's be safe here.
 "				(Interestingly, all of this was correctly
 "				implemented in hg.vim)
+"				Refactoring: Extract generic
+"				VcsRoot#Generic#RootByCommandWithDirFallback().
 "	002	18-Jul-2014	FIX: Make VCS root dir detection work when CWD
 "				is outside of the working copy.
 "	001	22-Mar-2013	file creation
 
 function! VcsRoot#git#Root()
-    let l:root = ingo#system#Chomped('cd ' . ingo#compat#shellescape(expand('%:p:h')) . '&& git rev-parse --show-toplevel')
-    if v:shell_error != 0
-	let l:root = ''
-    endif
-
-    if empty(l:root)
-	" Fallback: Search upwards for the storage directory, and assume it's in
-	" the root dir.
-	let l:gitDirspec = finddir('.git', './;')
-	if ! empty(l:gitDirspec)
-	    let l:root = fnamemodify(ingo#fs#path#Combine(l:gitDirspec, ''), ':p:h:h')
-	endif
-    endif
-
-    return l:root
+    return VcsRoot#Generic#RootByCommandWithDirFallback('git rev-parse --show-toplevel', '.git')
 endfunction
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
