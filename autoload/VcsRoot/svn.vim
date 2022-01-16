@@ -14,6 +14,8 @@
 "				Append a trailing / to the found directory;
 "				fnamemodify() should recognize the directory,
 "				anyway, but let's be safe here.
+"				Refactoring: Reuse extracted
+"				VcsRoot#Generic#RootByUpwardsDirSearch().
 "	004	18-Jul-2014	Support Subversion 1.7 repository layout with
 "				only a single .svn directory inside the working
 "				copy root.
@@ -25,23 +27,19 @@
 "	001	22-Mar-2013	file creation
 
 function! VcsRoot#svn#Root()
-    if isdirectory(ingo#fs#path#Combine(expand('%:p:h'), '.svn'))
+    let l:vcsMetaDirname = '.svn'
+    if isdirectory(ingo#fs#path#Combine(expand('%:p:h'), l:vcsMetaDirname))
 	" Detection for Subversion <= 1.6 (where there are .svn directories in
 	" every directory of the working copy), or when in the working copy
 	" root.
 
 	" Iterate upwards from CWD until we're in a directory without a .svn
 	" directory.
-	return ingo#fs#traversal#FindLastContainedInUpDir('.svn')
+	return ingo#fs#traversal#FindLastContainedInUpDir(l:vcsMetaDirname)
     else
 	" Detection for Subversion >= 1.7, where there's only a single .svn
 	" directory in the working copy root.
-	let l:svnDirspec = finddir('.svn', './;')
-	if empty(l:svnDirspec)
-	    return ''
-	else
-	    return fnamemodify(ingo#fs#path#Combine(l:svnDirspec, ''), ':p:h:h')
-	endif
+	return VcsRoot#Generic#RootByUpwardsDirSearch(l:vcsMetaDirname)
     endif
 endfunction
 
