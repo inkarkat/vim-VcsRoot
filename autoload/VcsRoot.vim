@@ -2,15 +2,10 @@
 "
 " DEPENDENCIES:
 "
-" Copyright: (C) 2013-2018 Ingo Karkat
+" Copyright: (C) 2013-2022 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"	002	04-Apr-2013	FIX: Force lowercase VCSType; this differs for
-"				the various types supported by VcsCommand.vim.
-"	001	23-Mar-2013	file creation
 
 function! VcsRoot#Root()
     if exists('b:VcsRoot')

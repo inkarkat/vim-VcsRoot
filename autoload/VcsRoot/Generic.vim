@@ -7,9 +7,6 @@
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"	001	16-Jan-2022	file creation
 
 function! VcsRoot#Generic#RootByCommandWithDirFallback( vcsRootCommand, vcsMetaDirname ) abort
     let l:root = ingo#system#Chomped('cd ' . ingo#compat#shellescape(expand('%:p:h')) . ' && ' . a:vcsRootCommand)

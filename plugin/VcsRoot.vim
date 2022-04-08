@@ -1,14 +1,12 @@
 " VcsRoot.vim: Determine or set the repository's root directory.
 "
 " DEPENDENCIES:
+"   - ingo-library.vim plugin
 "
-" Copyright: (C) 2018 Ingo Karkat
+" Copyright: (C) 2018-2022 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"	001	21-May-2018	file creation
 
 " Avoid installing twice or when in unsupported Vim version.
 if exists('g:loaded_VcsRoot') || (v:version < 700)

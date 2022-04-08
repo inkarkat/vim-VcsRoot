@@ -1,19 +1,12 @@
 " VcsRoot/Manual.vim: Set the repository's root manually.
 "
 " DEPENDENCIES:
-"   - ingo/err.vim autoload script
-"   - ingo/escape/file.vim autoload script
-"   - ingo/fs/path.vim autoload script
-"   - ingo/fs/path/split.vim autoload script
+"   - ingo-library.vim plugin
 "
-" Copyright: (C) 2018 Ingo Karkat
+" Copyright: (C) 2018-2022 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"	002	24-May-2018	Finished implementation.
-"	001	21-May-2018	file creation
 let s:save_cpo = &cpo
 set cpo&vim
 

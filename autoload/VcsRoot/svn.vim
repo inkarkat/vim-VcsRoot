@@ -7,24 +7,6 @@
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"	005	16-Jan-2022	BUG: Fallback upwards search needs to start from
-"				the file's directory (./), not the PWD (.).
-"				Append a trailing / to the found directory;
-"				fnamemodify() should recognize the directory,
-"				anyway, but let's be safe here.
-"				Refactoring: Reuse extracted
-"				VcsRoot#Generic#RootByUpwardsDirSearch().
-"	004	18-Jul-2014	Support Subversion 1.7 repository layout with
-"				only a single .svn directory inside the working
-"				copy root.
-"	003	01-Aug-2013	ingo#fs#traversal#FindLastContainedInUpDir now
-"				defaults to the current buffer's directory; omit
-"				the argument.
-"	002	26-Mar-2013	Rename to
-"				ingo#fs#traversal#FindLastContainedInUpDir()
-"	001	22-Mar-2013	file creation
 
 function! VcsRoot#svn#Root()
     let l:vcsMetaDirname = '.svn'
