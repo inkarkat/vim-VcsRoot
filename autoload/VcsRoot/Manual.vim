@@ -23,7 +23,7 @@ function! s:Canonicalize( dirspec )
 endfunction
 function! s:Apply( dirspec )
     augroup VcsRootManual
-	execute printf('autocmd BufNew,BufRead %s call setbufvar(str2nr(expand("<abuf>")), "VcsRoot", %s)',
+	execute printf('autocmd BufNewFile,BufRead %s call setbufvar(str2nr(expand("<abuf>")), "VcsRoot", %s)',
 	\   ingo#escape#file#autocmdescape(ingo#fs#path#Combine(a:dirspec, '**')), string(a:dirspec)
 	\)
     augroup END
