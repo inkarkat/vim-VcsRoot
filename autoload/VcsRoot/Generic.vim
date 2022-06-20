@@ -25,11 +25,7 @@ endfunction
 
 function! VcsRoot#Generic#RootByUpwardsDirSearch( vcsMetaDirname ) abort
     let l:dirspec = finddir(a:vcsMetaDirname, './;')
-    if ! empty(l:dirspec)
-	return ''
-    else
-	return fnamemodify(ingo#fs#path#Combine(l:dirspec, ''), ':p:h:h')
-    endif
+    return (empty(l:dirspec) ? '' : fnamemodify(ingo#fs#path#Combine(l:dirspec, ''), ':p:h:h'))
 endfunction
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
