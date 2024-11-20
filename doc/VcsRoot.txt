@@ -6,7 +6,6 @@ description			|VcsRoot-description|
 usage				|VcsRoot-usage|
 installation			|VcsRoot-installation|
 configuration			|VcsRoot-configuration|
-integration			|VcsRoot-integration|
 limitations			|VcsRoot-limitations|
 known problems			|VcsRoot-known-problems|
 todo				|VcsRoot-todo|
@@ -15,18 +14,16 @@ history				|VcsRoot-history|
 ==============================================================================
 DESCRIPTION						 *VcsRoot-description*
 
-This plugin ...
-
-HOW IT WORKS								     *
-
-SOURCE									     *
-(Original Vim tip, Stack Overflow answer, ...)
+This plugin determines the root directory of the project that the current
+buffer belongs to by querying the version control system (VCS). Git,
+Mercurial, and Subversion are supported as well as manually registered
+directories. Customizations and other plugins can then access this information
+via VcsRoot#Root().
 
 SEE ALSO								     *
-(Plugins offering complementary functionality, or plugins using this library.)
-
-RELATED WORKS								     *
-(Alternatives from other authors, other approaches, references not used here.)
+- |SpecialFileLocations.vim| (vimscript #0000) uses this plugin to provide
+  |:RootEdit|, |:RootSplit|, etc. commands to open files relative to the
+  project's root.
 
 ==============================================================================
 USAGE							       *VcsRoot-usage*
@@ -71,16 +68,11 @@ DEPENDENCIES						*VcsRoot-dependencies*
 CONFIGURATION					       *VcsRoot-configuration*
 
 For a permanent configuration, put the following commands into your |vimrc|:
-			*g:VcsRoot_RootStoreFilespec*
+						 *g:VcsRoot_RootStoreFilespec*
 To change the default location where |:RootStore| persists the manually set
 roots: >
     let g:VcsRoot_RootStoreFilespec = $HOME . '/.vimroots'
 <
-							       *VcsRoot-remap*
-plugmap
-==============================================================================
-INTEGRATION						 *VcsRoot-integration*
-
 ==============================================================================
 LIMITATIONS						 *VcsRoot-limitations*
 
@@ -105,7 +97,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2018-2022 Ingo Karkat
+Copyright: (C) 2018-2024 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>

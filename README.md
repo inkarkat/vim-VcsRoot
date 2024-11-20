@@ -5,16 +5,13 @@ _by Ingo Karkat_
 DESCRIPTION
 ------------------------------------------------------------------------------
 
-This plugin ...
+This plugin determines the root directory of the project that the current
+buffer belongs to by querying the version control system (VCS). Git,
+Mercurial, and Subversion are supported as well as manually registered
+directories. Customizations and other plugins can then access this information
+via VcsRoot#Root().
 
-### SOURCE
-(Original Vim tip, Stack Overflow answer, ...)
-
-### SEE ALSO
-(Plugins offering complementary functionality, or plugins using this library.)
-
-### RELATED WORKS
-(Alternatives from other authors, other approaches, references not used here.)
+SEE ALSO                                                                     \*
 
 USAGE
 ------------------------------------------------------------------------------
@@ -66,7 +63,6 @@ roots:
 
     let g:VcsRoot_RootStoreFilespec = $HOME . '/.vimroots'
 
-plugmap
 CONTRIBUTING
 ------------------------------------------------------------------------------
 
@@ -83,7 +79,7 @@ First published version.
 - Started development.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2018-2022 Ingo Karkat -
+Copyright: (C) 2018-2024 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
 Maintainer:     Ingo Karkat &lt;ingo@karkat.de&gt;
