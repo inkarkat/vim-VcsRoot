@@ -2,7 +2,7 @@
 "
 " DEPENDENCIES:
 "
-" Copyright: (C) 2013-2022 Ingo Karkat
+" Copyright: (C) 2013-2025 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -12,6 +12,7 @@ function! VcsRoot#Root()
 	return b:VcsRoot
     endif
 
+    if ! exists('*VCSCommandGetVCSType') | return '' | endif
     try
 	let b:VcsRoot = VcsRoot#{tolower(VCSCommandGetVCSType(bufnr('')))}#Root()
     catch /^Vim\%((\a\+)\)\=:E/

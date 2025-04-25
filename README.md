@@ -52,6 +52,8 @@ To uninstall, use the :RmVimball command.
 - Requires Vim 7.0 or higher.
 - Requires the ingo-library.vim plugin ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)), version 1.042 or
   higher.
+- Requires the vcscommand.vim plugin ([vimscript #90](http://www.vim.org/scripts/script.php?script_id=90)), version 1.99 or
+  higher.
 
 CONFIGURATION
 ------------------------------------------------------------------------------
@@ -79,7 +81,7 @@ First published version.
 - Started development.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2018-2024 Ingo Karkat -
+Copyright: (C) 2018-2025 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
 Maintainer:     Ingo Karkat &lt;ingo@karkat.de&gt;

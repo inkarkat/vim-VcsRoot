@@ -63,6 +63,8 @@ DEPENDENCIES						*VcsRoot-dependencies*
 - Requires Vim 7.0 or higher.
 - Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.042 or
   higher.
+- Requires the |vcscommand.vim| plugin (vimscript #90), version 1.99 or
+  higher.
 
 ==============================================================================
 CONFIGURATION					       *VcsRoot-configuration*
@@ -97,7 +99,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2018-2024 Ingo Karkat
+Copyright: (C) 2018-2025 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
